@@ -6,6 +6,10 @@
   "repository": "https://github.com/durhamprogrammer/WEBD6201-W2021-ICE1b.git",
   "author": "Tom Tsiliopoulos <tsiliopoulos@hotmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": "^14.0.0",
+    "npm": "^6.1.0"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@popperjs/core": "^2.6.0",
