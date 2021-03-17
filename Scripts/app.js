@@ -23,6 +23,7 @@ var core;
         $(`#${router.ActiveLink}`).addClass("active");
     }
     function loadLink(link, data = "") {
+        console.log("loadLink: " + link);
         highlightActiveLink(link);
         router.LinkData = data;
         loadContent(router.ActiveLink, ActiveLinkCallBack(router.ActiveLink));
@@ -128,13 +129,13 @@ var core;
                 let contact = new core.Contact();
                 contact.deserialize(contactData);
                 data += `<tr>
-          <th scope="row" class="text-center">${index}</th>
-          <td>${contact.FullName}</td>
-          <td>${contact.ContactNumber}</td>
-          <td>${contact.EmailAddress}</td>
-          <td class="text-center"><button value="${key}" class="btn btn-primary btn-sm edit"><i class="fas fa-edit fa-sm"></i> Edit</button></td>
-          <td class="text-center"><button value="${key}" class="btn btn-danger btn-sm delete"><i class="fas fa-trash-alt fa-sm"></i> Delete</button></td>
-          </tr>`;
+            <th scope="row" class="text-center">${index}</th>
+            <td>${contact.FullName}</td>
+            <td>${contact.ContactNumber}</td>
+            <td>${contact.EmailAddress}</td>
+            <td class="text-center"><button value="${key}" class="btn btn-primary btn-sm edit"><i class="fas fa-edit fa-sm"></i> Edit</button></td>
+            <td class="text-center"><button value="${key}" class="btn btn-danger btn-sm delete"><i class="fas fa-trash-alt fa-sm"></i> Delete</button></td>
+            </tr>`;
                 index++;
             }
             contactList.innerHTML = data;
@@ -151,6 +152,9 @@ var core;
                 loadLink("edit");
             });
         }
+        $("#addButton").on("click", function () {
+            loadLink("edit");
+        });
     }
     function displayEdit() {
         let key = router.LinkData;
@@ -162,7 +166,7 @@ var core;
             $("#emailAddress").val(contact.EmailAddress);
         }
         else {
-            $("main>h1").text("Add Contact");
+            $("main>div>h1").text("Add Contact");
             $("#editButton").html(`<i class="fas fa-plus-circle fa-lg"></i> Add`);
         }
         formValidation();

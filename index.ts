@@ -1,43 +1,28 @@
-import http = require("http");
-import url = require("url");
-import fs = require("fs");
+import express = require('express');
+const app = express();
 
-import mime = require("mime-types");
-
-let lookup = mime.lookup;
-
-const PORT:number = 3000;
+const PORT = 3000;
 const HOST:string = "localhost";
 
+app.use(express.static('./'));
 
-const server:http.Server = http.createServer((req:http.IncomingMessage, res:http.ServerResponse) =>
+// displays data based on the default / path
+app.get('/', (req, res) => 
 {
-
-  let parsedURL = new URL(req.url, "http://" + HOST + ":" + PORT);
-
-  let path = parsedURL.pathname.replace(/^\/+|\/+$/g, "");
-
-    if (path == "") {
-      path = "index.html";
-    }
-    
-  let file = __dirname + "\\" + path;
-  fs.readFile(file, function(err, content) {
-      if (err) 
-      {
-        res.writeHead(404);
-        res.end();
-      } 
-      else 
-      {
-        res.setHeader("X-Content-Type-Options", "nosniff");
-        let mime = lookup(path);
-        res.writeHead(200, { "Content-type": mime.toString() });
-        res.end(content);
-      }
-    });
+  res.status(200).send('Hello, World!');
 });
 
-server.listen(PORT, HOST, () =>{
-  console.log(`Listening on port ${PORT}`);
+app.get('/home', (req, res) => 
+{
+  res.sendFile('/index.html');
+
+
+  
+
+
+});
+
+app.listen(PORT, () => 
+{
+  console.log(`WEBD6201 listening at http://${HOST}:${PORT}`);
 });
