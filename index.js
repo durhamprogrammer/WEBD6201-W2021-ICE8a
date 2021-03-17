@@ -4,11 +4,21 @@ const path = require("path");
 const fs = require("fs");
 const express = require("express");
 const app = express();
-const PORT = 3000;
+const PORT = normalizePort(process.env.PORT || '3000');
 const HOST = "localhost";
 app.use(express.static(path.join(__dirname, '/Client')));
 app.use(express.static(path.join(__dirname, '/node_modules')));
 app.use(express.static(path.join(__dirname, '/Views')));
+function normalizePort(val) {
+    var port = parseInt(val, 10);
+    if (isNaN(port)) {
+        return val;
+    }
+    if (port >= 0) {
+        return port;
+    }
+    return false;
+}
 function displaySPA(res) {
     fs.readFile(__dirname + "/index.html", (err, data) => {
         if (err) {

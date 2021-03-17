@@ -8,13 +8,32 @@ import express = require('express');
 import { ServerResponse } from 'node:http';
 const app = express();
 
-const PORT = 3000;
+const PORT = normalizePort(process.env.PORT || '3000');
 const HOST:string = "localhost";
 
 // add static folders to the path
 app.use(express.static(path.join(__dirname, '/Client')));
 app.use(express.static(path.join(__dirname, '/node_modules')));
 app.use(express.static(path.join(__dirname, '/Views')));
+
+
+function normalizePort(val:string) :number | string | boolean
+{
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
 
 
 // display home - named function
