@@ -1,25 +1,94 @@
+// pre-bundled modules
+import path = require('path');
+import fs = require('fs');
+
+
+// 3rd-party modules
 import express = require('express');
+import { ServerResponse } from 'node:http';
 const app = express();
 
 const PORT = 3000;
 const HOST:string = "localhost";
 
-app.use(express.static('./'));
+// add static folders to the path
+app.use(express.static(path.join(__dirname, '/Client')));
+app.use(express.static(path.join(__dirname, '/node_modules')));
+app.use(express.static(path.join(__dirname, '/Views')));
 
-// displays data based on the default / path
-app.get('/', (req, res) => 
+
+// display home - named function
+function displaySPA(res:ServerResponse)
 {
-  res.status(200).send('Hello, World!');
+// default controller
+fs.readFile(__dirname + "/index.html", (err, data) => 
+{
+  if(err)
+  {
+    res.writeHead(404);
+    res.end(JSON.stringify(err));
+    return;
+  }
+    res.writeHead(200);
+    res.end(data);
+});
+}
+
+// home route
+app.get('/', (req, res) => {
+
+  displaySPA(res);
 });
 
-app.get('/home', (req, res) => 
-{
-  res.sendFile('/index.html');
 
+app.get('/home', (req, res) => {
 
-  
+  displaySPA(res);
+});
 
+app.get('/about', (req, res) => {
 
+  displaySPA(res);
+});
+
+app.get('/services', (req, res) => {
+
+  displaySPA(res);
+});
+
+app.get('/contact', (req, res) => {
+
+  displaySPA(res);
+});
+
+app.get('/contact-list', (req, res) => {
+
+  displaySPA(res);
+});
+
+app.get('/projects', (req, res) => {
+
+  displaySPA(res);
+});
+
+app.get('/register', (req, res) => {
+
+  displaySPA(res);
+});
+
+app.get('/login', (req, res) => {
+
+  displaySPA(res);
+});
+
+app.get('/edit', (req, res) => {
+
+  displaySPA(res);
+});
+
+app.get('*', (req, res) => {
+  // wildcard controller
+  displaySPA(res);
 });
 
 app.listen(PORT, () => 
