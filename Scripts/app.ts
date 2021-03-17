@@ -223,9 +223,9 @@ namespace core
               localStorage.setItem(key, contact.serialize());
             }
           }
-        });
 
-        loadLink("contact"); // reload contact page
+          loadLink("contact"); // reload contact page
+        });
     }
 
     function displayContactList() :void

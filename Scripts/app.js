@@ -114,8 +114,8 @@ var core;
                     localStorage.setItem(key, contact.serialize());
                 }
             }
+            loadLink("contact");
         });
-        loadLink("contact");
     }
     function displayContactList() {
         authGuard();
